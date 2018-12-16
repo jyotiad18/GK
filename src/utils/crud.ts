@@ -41,25 +41,7 @@ export class Crud extends FileIO {
 
     //GetByValue
     public getByValue(params: object): any {
-        return _.filter(this.getData(),params);
-        /*try {
-            if (typeof(params) === "object"){
-                if (Object.keys(params).length > 0)
-                {
-                    return _.filter(this.getData(), params);
-                } else{
-                    return {'message': 'object is blank'};
-                } 
-            } else {
-                return {'message': 'object is not valid'};
-            }
-        }
-        catch(err)
-        {
-            return 'err';
-            console.log(err);
-        }
-       */
+        return _.filter(this.getData(), params);
     }
 
     //Search Through Object
@@ -74,9 +56,13 @@ export class Crud extends FileIO {
 
     //POST
     public post(params: any) : any {
-        const data = this.getAll();
-        data.push(params);
-        return this.writeData(data);
+        if (params != undefined) {
+            const data = this.getAll();
+            data.push(params);
+            return this.writeData(data);
+        } else {
+            return false;
+        }
     }
 
     //PUT
@@ -96,7 +82,7 @@ export class Crud extends FileIO {
     }
 
     //DELETE
-    public delete(id: string) :any {
+    public delete(id: string): any {
         if (id != undefined) {
             const data = this.getAll();
             _.findIndex(data, (r, i) => {
