@@ -85,4 +85,17 @@ describe('CRUD', () => {
       //Assert
       expect(postStub.calledWith(params), "Data Posted");
     });
+
+    it('Data put return error while id is undefined', () => {
+      //Arragne
+      const postStub = sinon.stub(undefined, undefined).returns('id not defined');
+      crudStub.put = postStub;
+
+      //Act
+      crudStub.put();
+
+      //Assert
+      expect(postStub.calledOnce, 'Put called once');
+      expect(postStub.calledWith('id not defined'), 'Put id is undefined');
+    });
 })
